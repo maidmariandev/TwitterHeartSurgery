@@ -3,8 +3,10 @@ $FakeRedirect = "https://google.com";
 $RealSite = "https://nypost.com/2020/10/14/email-reveals-how-hunter-biden-introduced-ukrainian-biz-man-to-dad/";
 
 $ip = $_SERVER['REMOTE_ADDR'];
-if (strpos($ip, "199.16.156") !== false) {
-
+if (strpos($ip, "199.16.156") !== false) { //known twitter ip block
+    header("HTTP/1.1 301 Moved Permanently");
+    header("Location: $FakeRedirect");
+    exit;
 }
 $json = file_get_contents("https://extreme-ip-lookup.com/json/$ip");
 $data = json_decode($json, true);
